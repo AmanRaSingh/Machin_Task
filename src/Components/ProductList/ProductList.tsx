@@ -6,13 +6,16 @@ import { Link } from 'react-router-dom';
 
 interface Product {
     id: number;
-    img: string;
     title: string;
-    images: string;
+    price: number;
+    images: string[];
+    description: string;
 }
+
 interface State {
     products: Product[] | null;
 }
+
 export default class ProductList extends Component<{}, State> {
     constructor(props: {}) {
         super(props);
@@ -26,7 +29,6 @@ export default class ProductList extends Component<{}, State> {
     }
 
     fetchData = () => {
-        // const id = 1;
         axios.get("https://dummyjson.com/products")
             .then(response => {
                 console.log(response.data);
@@ -38,46 +40,40 @@ export default class ProductList extends Component<{}, State> {
     }
 
     handleIcon = () => {
-        alert("Handle Icon clicked")
+        alert("Handle Icon clicked");
     }
+
     handleAddToCart = () => {
-        alert("Handle Add To Cart clicked")
+        alert("Handle Add To Cart clicked");
     }
+
     render() {
         const { products } = this.state;
+    
+        if (!products) {
+            return <Typography>Loading...</Typography>;
+        }
+    
         return (
-            <>
-                <Link to={"/products/:id"}>
-
-                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                        {products && (
-                            <Box style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-                                {products.map(product => (
-
-                                    <Box key={product.id} style={{ border: "4px solid green", width: "30%", height: "10%", margin: "auto" }}>
-                                        <FavoriteBorderIcon onClick={this.handleIcon} />
-                                        <img
-                                            src={product.images[0]}
-                                            style={{ height: 'auto', width: '70%', }}
-                                            alt={`Product ${product.id}`}
-                                        />
-                                        <Typography>Name:-{product.title}</Typography>
-                                        {/* <Typography>Price:-{product.price}</Typography> */}
-                                        {/* <Typography>Description:-{product.description}</Typography> */}
-                                        <Button sx={{ border: "1px solid red" }} onClick={this.handleAddToCart}>ADD TO CART</Button>
-
-                                    </Box>
-
-                                ))}
-
-                            </Box>
-
-                        )}
-                    </Box>
-                </Link>
-
-            </>
-
-        )
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Box style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+                    {products.map(product => (
+                        <Box key={product.id} style={{ border: "px solid green", width: "30%", height: "10%", margin: "auto", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>
+                            <FavoriteBorderIcon onClick={this.handleIcon} />
+                            <Link to={`/products/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <img
+                                    src={product.images[0]}
+                                    style={{ height: 'auto', width: '60%' }}
+                                    alt={`Product ${product.id}`}
+                                />
+                                <Typography>Name: {product.title}</Typography>
+                                <Typography variant="h6">Price: {product.price}</Typography>
+                                <Button sx={{backgroundColor:"blue",width:"full" }} onClick={this.handleAddToCart}>ADD TO CART</Button>
+                            </Link>
+                        </Box>
+                    ))}
+                </Box>
+            </Box>
+        );
     }
 }

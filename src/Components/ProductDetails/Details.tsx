@@ -1,86 +1,3 @@
-// import { Component } from 'react';
-// import { Box, Typography, Button } from '@mui/material';
-// import axios from 'axios';
-// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-// interface Product {
-//     id: number;
-//     img: string;
-//     title: string;
-//     price: number;
-//     images: string;
-//     description: string;
-// }
-
-// interface State {
-//     imageIndex: number;
-//     products: Product[] | null;
-// }
-
-// export default class Details extends Component<{}, State> {
-//     constructor(props: {id:string}) {
-//         super(props);
-//         this.state = {
-//             imageIndex: 0,
-//             products: null
-//         };
-//     }
-
-//     componentDidMount() {
-//         const {id}=this.props
-//         this.fetchData(id);
-//     }
-
-//     fetchData = (id:string) => {
-//         axios.get(`https://dummyjson.com/products${id}`)
-//             .then(response => {
-//                 console.log(response.data);
-//                 this.setState({ products: response.data.products });
-//             })
-//             .catch(error => {
-//                 console.error("There was an error making the request:", error);
-//             });
-//     }
-//     handleIcon = () => {
-
-//     }
-//     handleAddToCart = () => {
-//         alert("Handle Add To Cart clicked")
-//     }
-//     render() {
-//         const { products } = this.state;
-//         return (
-//             <Box>
-                
-
-//                     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-//                         {products && (
-//                             <Box style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-//                                 {products.map(product => (
-
-//                                     <Box key={product.id} style={{ border: "4px solid green", width: "30%", height: "10%", margin: "auto" }}>
-//                                         <FavoriteBorderIcon onClick={this.handleIcon} />
-
-//                                         <img
-//                                             src={product.images[0]}
-//                                             style={{ height: 'auto', width: '70%', }}
-//                                             alt={`Product ${product.id}`}
-//                                         />
-//                                         <Typography>Name:-{product.title}</Typography>
-//                                         <Typography>Price:-{product.price}</Typography>
-//                                         <Typography>Description:-{product.description}</Typography>
-//                                         <Button sx={{ border: "1px solid red" }} onClick={this.handleAddToCart}>ADD TO CART</Button>
-//                                     </Box>
-//                                 ))}
-//                             </Box>
-//                         )}
-//                     </Box>
-
-//             </Box>
-//         );
-//     }
-// }
-
-
 import React, { Component } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import axios from 'axios';
@@ -94,11 +11,7 @@ interface Product {
 }
 
 interface Props {
-    match: {
-        params: {
-            id: string;
-        };
-    };
+    id: string;
 }
 
 interface State {
@@ -114,7 +27,7 @@ class Details extends Component<Props, State> {
     }
 
     componentDidMount() {
-        const { id } = this.props.match.params;
+        const { id } = this.props;
         this.fetchData(id);
     }
 
@@ -123,37 +36,48 @@ class Details extends Component<Props, State> {
             .then(response => {
                 console.log(response.data);
                 this.setState({ product: response.data });
+                // this.setState
             })
             .catch(error => {
                 console.error("There was an error making the request:", error);
             });
     }
 
-    handleIcon = () => {
-    }
-
     handleAddToCart = () => {
         alert("Handle Add To Cart clicked");
-    }
+
+    }   
 
     render() {
         const { product } = this.state;
-        if (!product) return <div>Loading...</div>;
+        if (!product) return
 
         return (
+
             <Box>
+                <Typography variant="h2">Product Details</Typography>
                 <img
                     src={product.images[0]}
-                    style={{ width: '100%', height: 'auto' }}
+                    style={{ width: '20%', height: 'auto', border: "1px solid red" }}
                     alt={`Product ${product.id}`}
                 />
                 <Typography variant="h4">{product.title}</Typography>
                 <Typography variant="h6">Price: {product.price}</Typography>
-                <Typography variant="body1">{product.description}</Typography>
+                <Typography variant="body1">Description:-{product.description}</Typography>
                 <Button sx={{ border: "1px solid red" }} onClick={this.handleAddToCart}>ADD TO CART</Button>
             </Box>
         );
     }
 }
 
-export default Details;
+const DetailsWrapper: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
+
+    if (!id) {
+        return <div>Error: No ID provided</div>;
+    }
+
+    return <Details id={id} />;
+};
+
+export default DetailsWrapper;

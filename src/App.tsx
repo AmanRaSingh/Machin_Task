@@ -6,7 +6,7 @@ import Cart from './Components/Add to Cart/Cart';
 import Favorite from './Components/Favorite/Favorite';
 import ProductList from './Components/ProductList/ProductList';
 import Details from './Components/ProductDetails/Details';
-import { useParams } from 'react-router-dom';
+
 function App() {
   return (
     <>
@@ -20,16 +20,14 @@ function App() {
             <Link to="/favorite"><Button sx={{ backgroundColor: "pink", color: "black" }}>Favorite</Button></Link>
           </Box>
         </Box>
-        <Header />
+        <Header/>
 
         <Routes>
-        <Route path="/" element={<ProductList />} />
-        <Route path="/products/:id" element={<Details />} />
-
-        <Route path="/add-to-cart" element={<Cart />} />
-        <Route path="/favorite" element={<Favorite />} />
-      </Routes>
-
+          <Route path="/" element={<ProductList />} />
+          <Route path="/products/:id" element={<Details />} />
+          <Route path="/add-to-cart" element={<Cart />} />
+          <Route path="/favorite" element={<Favorite />} />
+        </Routes>
       </BrowserRouter>
     </>
   );
