@@ -3,11 +3,14 @@ import { Box, Typography, Button } from '@mui/material';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 interface Product {
+    rating: number;
     id: number;
     title: string;
     price: number;
+    stock:number
     images: string[];
     description: string;
+    returnPolicy: string;
 }
 
 interface Props {
@@ -36,7 +39,6 @@ class Details extends Component<Props, State> {
             .then(response => {
                 console.log(response.data);
                 this.setState({ product: response.data });
-                // this.setState
             })
             .catch(error => {
                 console.error("There was an error making the request:", error);
@@ -46,7 +48,7 @@ class Details extends Component<Props, State> {
     handleAddToCart = () => {
         alert("Handle Add To Cart clicked");
 
-    }   
+    }
 
     render() {
         const { product } = this.state;
@@ -63,8 +65,12 @@ class Details extends Component<Props, State> {
                 />
                 <Typography variant="h4">{product.title}</Typography>
                 <Typography variant="h6">Price: {product.price}</Typography>
+                <Typography variant='h6'>Rating: {product.rating}</Typography>
+                <Typography variant='h6'>Return Policy: {product.returnPolicy}</Typography>
+                <Typography variant='h6'>Stock: {product.stock}</Typography>
                 <Typography variant="body1">Description:-{product.description}</Typography>
-                <Button sx={{ border: "1px solid red" }} onClick={this.handleAddToCart}>ADD TO CART</Button>
+
+                <Button sx={{ backgroundColor: "aqua", color: "black" }} onClick={this.handleAddToCart}>ADD TO CART</Button>
             </Box>
         );
     }

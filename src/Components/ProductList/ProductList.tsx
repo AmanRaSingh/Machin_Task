@@ -9,7 +9,6 @@ interface Product {
     title: string;
     price: number;
     images: string[];
-    description: string;
 }
 
 interface State {
@@ -68,7 +67,7 @@ export default class ProductList extends Component<{}, State> {
                                 />
                                 <Typography>Name: {product.title}</Typography>
                                 <Typography variant="h6">Price: {product.price}</Typography>
-                                <Button sx={{backgroundColor:"blue",width:"full" }} onClick={this.handleAddToCart}>ADD TO CART</Button>
+                                <Button sx={{color:"black", backgroundColor:"aqua"}} onClick={this.handleAddToCart}>ADD TO CART</Button>
                             </Link>
                         </Box>
                     ))}
