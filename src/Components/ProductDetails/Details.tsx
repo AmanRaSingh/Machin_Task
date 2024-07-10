@@ -7,7 +7,7 @@ interface Product {
     id: number;
     title: string;
     price: number;
-    stock:number
+    stock: number
     images: string[];
     description: string;
     returnPolicy: string;
@@ -45,10 +45,6 @@ class Details extends Component<Props, State> {
             });
     }
 
-    handleAddToCart = () => {
-        alert("Handle Add To Cart clicked");
-
-    }
 
     render() {
         const { product } = this.state;
@@ -56,21 +52,24 @@ class Details extends Component<Props, State> {
 
         return (
 
-            <Box>
-                <Typography variant="h2">Product Details</Typography>
-                <img
-                    src={product.images[0]}
-                    style={{ width: '20%', height: 'auto', border: "1px solid red" }}
-                    alt={`Product ${product.id}`}
-                />
-                <Typography variant="h4">{product.title}</Typography>
-                <Typography variant="h6">Price: {product.price}</Typography>
-                <Typography variant='h6'>Rating: {product.rating}</Typography>
-                <Typography variant='h6'>Return Policy: {product.returnPolicy}</Typography>
-                <Typography variant='h6'>Stock: {product.stock}</Typography>
-                <Typography variant="body1">Description:-{product.description}</Typography>
+            <Box sx={{ display: 'flex', justifyContent: "space-around", width: '70%', border: "px solid red" }}>
+                <Box>
+                    <Typography variant="h2">Product Details</Typography>
+                    <img src={product.images[0]} style={{ width: '30%', height: 'auto', border: "1px solid red" }} alt={`Product ${product.id}`}
+                    />
+                </Box>
 
-                <Button sx={{ backgroundColor: "aqua", color: "black" }} onClick={this.handleAddToCart}>ADD TO CART</Button>
+                <Box>
+                    <Typography variant="h4">{product.title}</Typography>
+                    <Typography variant="h6">Price: {product.price}</Typography>
+                    <Typography variant='h6'>Rating: {product.rating}</Typography>
+                    <Typography variant='h6'>Return Policy: {product.returnPolicy}</Typography>
+                    <Typography variant='h6'>Stock: {product.stock}</Typography>
+                    <Typography variant="body1">Description:-{product.description}</Typography>
+
+                    <Button sx={{ backgroundColor: "aqua", color: "black" }}>ADD TO CART</Button>
+                </Box>
+
             </Box>
         );
     }
