@@ -69,6 +69,8 @@ export default class ProductList extends Component<{}, State> {
                                 <Typography variant="h6">Price: {product.price}</Typography>
                                 <Button sx={{color:"black", backgroundColor:"aqua"}} onClick={this.handleAddToCart}>ADD TO CART</Button>
                             </Link>
+
+                            
                         </Box>
                     ))}
                 </Box>
